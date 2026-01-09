@@ -15,7 +15,7 @@ condition_variable cv;
 
 void worker()
 {
-	//Unique_lock can unlock and relock
+	//Unique_lock can unlock and relock. First locks the variable here. 
 	unique_lock<mutex> lock(mtx);
 	
 	cout<<"Wait for notification"<<endl;
@@ -36,7 +36,7 @@ int main()
 	this_thread::sleep_for(chrono::seconds(1));
 	//Enter critical section
 	{
-		//Lock to protec ready variable, no need to lock or unlock manualy.
+		//Lock to protec ready variable and no need to lock or unlock manualy, hence use lock_guard
 		lock_guard<mutex> lock(mtx);
 		ready = true;
 	}
